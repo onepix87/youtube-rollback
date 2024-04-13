@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Rollback Youtube Layout",
+  "description": "Make Youtube Great Again",
+  "version": "1.1.1",
+  "content_scripts": [
+    {
+      "matches": ["*://www.youtube.com/watch*"],
+      "js": ["scripts/monkey.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["*://www.youtube.com/watch*"],
+      "js": ["scripts/config.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    }
+  ]
+}
