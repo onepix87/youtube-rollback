@@ -26,7 +26,6 @@ let initialCallback = () => {
     // Monkey patching initial data loading function in case when yt polymer script loaded faster.
     if (window.loadInitialData) {
         const { loadInitialData: origLoadInitialData } = window;
-        console.log('HALO');
 
         window.loadInitialData = (initialData) => {
             if (initialData.response?.contents?.twoColumnWatchNextResults?.secondaryResults.secondaryResults.results[0].richGridRenderer) {
@@ -41,7 +40,6 @@ let initialCallback = () => {
     }
     // Replacing rich related feed results with compact version in yt initial data.
     if (!window.loadInitialData && window.ytInitialData?.contents?.twoColumnWatchNextResults) {
-        console.log('AMERICA');
         if (window.ytInitialData.contents.twoColumnWatchNextResults.secondaryResults.secondaryResults.results[0].richGridRenderer) {
             let richResults = window.ytInitialData.contents.twoColumnWatchNextResults.secondaryResults.secondaryResults.results[0].richGridRenderer;
             let compactResults = richResults.contents.map(resObj => (resObj.richItemRenderer ? { compactVideoRenderer: {...resObj.richItemRenderer.content.videoRenderer} } : resObj));
