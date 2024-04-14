@@ -14,6 +14,13 @@ window.fetch = async (...args) => {
             body.onResponseReceivedEndpoints[relatedFeedIndex].appendContinuationItemsAction.continuationItems = newRelatedFeedArray;
         }
 
+        if (body.contents && body.contents.twoColumnWatchNextResults?.secondaryResults?.secondaryResults?.results[0].richGridRenderer) {
+            let richResults = body.contents.twoColumnWatchNextResults.secondaryResults.secondaryResults.results[0].richGridRenderer;
+            let compactResults = richResults.contents.map(resObj => (resObj.richItemRenderer ? { compactVideoRenderer: {...resObj.richItemRenderer.content.videoRenderer} } : resObj));
+
+            body.contents.twoColumnWatchNextResults.secondaryResults.secondaryResults = { results: compactResults, targetId: richResults.targetId, trackingParams: richResults.trackingParams };
+        }
+
         return new Response(JSON.stringify(body), options);
     }
 
